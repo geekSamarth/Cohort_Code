@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Challenge-11</title>
+    <style>
+      div {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      form {
+        background-color: aquamarine;
+        width: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 7px;
+        font-size: 22px;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <form action="">
+        <label for="">Enter your email:</label>
+        <br />
+        <input type="email" required />
+        <br />
+        <label for="">Enter your Date of Birth</label>
+        <br />
+        <input type="date" />
+        <br />
+        <label for="">Choose your favourite color</label>
+        <br />
+        <input type="color" />
+      </form>
+    </div>
+    <section>
+        <video src="./assets/video.mp4" controls poster="./assets/wallpaper-9.jpg " width="800px"></video>
+    </section>
+    <canvas 
+      >An alternative text describing what yours canvas displays.</canvas
+    >
+    <script>
+      const canvas = document.querySelector("canvas");
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "pink";
+      ctx.fillRect(60, 10, 300, 200);
+    </script>
+  </body>
+</html>
