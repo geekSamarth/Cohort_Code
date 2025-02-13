@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Challenge-7</title>
+  </head>
+  <body>
+    <h2 style="text-align: center">Forms in HTML</h2>
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <form action="" style="width: 500px; background-color: bisque;padding: 20px;border-radius: 10px;">
+        <label for="">Enter your number</label>
+        <br>
+        <input type="number" placeholder="enter your number" max="10" />
+        <br />
+        <br />
+        <textarea
+          name=""
+          id=""
+          placeholder="Add your additional comments"
+        ></textarea>
+        <br>
+        <label for="">Enter your Password</label>
+        <br>
+        <input type="password" pattern="/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/" />
+      </form>
+    </div>
+  </body>
+</html>
