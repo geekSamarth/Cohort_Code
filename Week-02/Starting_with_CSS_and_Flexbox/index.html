@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS</title>
+    <style>
+        *{
+            overflow-x: hidden;
+        }
+      p {
+        background-color: lightblue;
+        padding: 10px;
+        font-size: 2em;
+      }
+      button{
+        padding: 10px 20px;
+        border-radius: 10px;
+        background-color: lightgreen;
+        margin-bottom: 2em;
+      }
+      .features {
+        width: 100vw;
+        height: 80vh;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+      .feature {
+        width: 200px;
+        height: 200px;
+        background-color: bisque;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2em;
+        justify-items: stretch;
+      }
+      .item-2{
+        align-self: end;
+        order: 3;
+      }
+    </style>
+  </head>
+  <body>
+    <p>This is a CSS class</p>
+    <button>Click Me</button>
+    <section class="features">
+      <div class="feature">1</div>
+      <div class="feature item-2">2</div>
+      <div class="feature">3</div>
+      <div class="feature">4</div>
+    </section>
+  </body>
+</html>
