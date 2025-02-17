@@ -10,7 +10,6 @@
   --text-dark: #ffffff;
   --border-dark: #374151;
 }
-
 body {
   padding: 1.5rem 2rem;
 }
@@ -22,127 +21,94 @@ body {
   border: none;
   float: right;
   font-size: 1em;
+  cursor: pointer;
 }
 .hero {
-  margin-top: 6rem;
+  margin: 6rem auto 0 auto;
 }
-
 .hero-grid {
-  display: grid;
-  
-  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-
+.content-col {
+  width: 40%;
+  padding: 0 5rem;
+}
 .content-col h1 {
+  font-size: 5em;
 }
-
 .content-col p {
+  font-size: 1.75em;
+  margin-top: -2rem;
 }
-
 .cta-group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 2.5rem 0 3rem 0;
 }
-
-.sr-only {
-}
-
-.input-wrapper {
-}
-
 input[type="text"] {
+  padding: 0.9rem 1.5rem;
+  width: 300px;
+  border-radius: 10px;
+  border: 2px solid var(--neutral-400);
+  font-size: 1.1em;
+  color: var(--neutral-900);
 }
-
 .demo-button {
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  background-color: var(--primary-blue);
+  color: var(--text-dark);
+  border: none;
+  font-size: 1em;
 }
-
 .demo-button:hover {
+  background-color: var(--primary-blue-dark);
 }
-
-.brands-section {
-}
-
 .trusted-by {
+  font-size: 1.75em;
+  font-weight: 600;
 }
-
 .brand-logos {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 0.5rem;
 }
-
 .brand-logo {
+  width: 100px;
 }
-
 .image-col {
+  width: 50%;
 }
-
 .hero-image {
-}
-
-@media (min-width: 640px) {
-  .hero {
-  }
-
-  .content-col h1 {
-  }
-
-  .cta-group {
-  }
-
-  .demo-button {
-  }
-
-  .input-wrapper {
-  }
-
-  input[type="text"] {
-  }
-}
-
-@media (min-width: 768px) {
-  .content-col h1 {
-  }
-}
-
-@media (min-width: 1024px) {
-  .hero {
-  }
-
-  .hero-grid {
-  }
-
-  .content-col h1 {
-  }
-
-  .cta-group {
-  }
-
-  .brands-section {
-  }
-
-  .image-col {
-  }
-}
-
-@media (min-width: 1280px) {
-  .hero-grid {
-    gap: 3rem;
-  }
-}
-
-.dark-mode-toggle {
-}
-
-.dark-mode-toggle:hover {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 14px;
 }
 
 body.dark {
-}
-
-.dark-mode-toggle {
-}
-
-.dark-mode-toggle:hover {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
 }
 
 input[type="text"].dark {
+  outline: none;
 }
-
+input [type="text"]:focus {
+  outline: none;
+}
 input[type="text"]::placeholder {
+  color: var(--neutral-400);
+}
+@media only screen and(max-width:640px) {
+  .hero-grid {
+    flex-direction: column-reverse;
+  }
+  .content-col,
+  .image-col {
+    width: 90%;
+  }
 }
