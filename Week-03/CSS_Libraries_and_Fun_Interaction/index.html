@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chaicode website</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      header {
+        background-color: #1f2937;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.2em;
+        color: #fff;
+      }
+      nav ul {
+        display: flex;
+        gap: 40px;
+        list-style-type: none;
+      }
+      ul li:hover {
+        cursor: pointer;
+      }
+      header div button {
+        padding: 8px 16px;
+        border-radius: 5px;
+        border: none;
+        margin: 0 0.7em;
+        font-size: 0.8em;
+      }
+      button:hover {
+        cursor: pointer;
+        background-color: #6aca16;
+      }
+      .hero {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #1f2937;
+        color: #fff;
+        padding: 20px 40px;
+      }
+      .hero div {
+        width: 50%;
+      }
+      .hero div h1 {
+        font-size: 3.5em;
+      }
+      .hero div p {
+        width: 90%;
+        font-size: 1.2em;
+        margin: 1.7rem 0;
+      }
+      .hero div button {
+        padding: 0.6rem 2.5rem;
+        border-radius: 8px;
+        font-size: 1.1em;
+        cursor: pointer;
+      }
+
+      .hero div img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+        box-shadow: 0 0 10px #fff;
+      }
+      .hero div img:hover {
+        transform: rotate(2deg);
+        transition: transform 0.1s ease-in-out;
+      }
+      .logo-text {
+        font-size: 2.5em;
+        text-align: center;
+        margin: 2rem 0;
+      }
+      .logo {
+        margin: 3.5rem 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem;
+      }
+      .logo div img {
+        width: 100px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+      .three-cards {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4rem;
+        margin-bottom: 4rem;
+      }
+      .card {
+        width: 300px;
+        padding: 10px;
+        border-radius: 7px;
+        background-color: rgb(82, 82, 83);
+        color: #fff;
+        box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.9);
+      }
+      .card img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+      .card h3 {
+        font-size: 1.5em;
+        margin: 1rem 0;
+      }
+      .card p {
+        font-size: 1em;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div>
+        <p>MyLogo</p>
+      </div>
+      <nav>
+        <ul>
+          <li>Home</li>
+          <li>About Us</li>
+          <li>Contact</li>
+        </ul>
+      </nav>
+      <div>
+        <button id="signup">Signup</button>
+        <button id="login">Login</button>
+      </div>
+    </header>
+    <section class="hero">
+      <div class="">
+        <h1>Hero Title</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur
+          odit magnam debitis ipsam. Dolore ex eius corporis beatae quasi, rerum
+          veniam quo laborum et aliquam, quos consectetur magni, porro
+          excepturi.
+        </p>
+        <button>Sign Up</button>
+      </div>
+      <div class="">
+        <img src="./assets/wallpaer-2.jpg" alt="image to refer" />
+      </div>
+    </section>
+    <h2 class="logo-text">Our Clients</h2>
+    <section class="logo">
+      <div class="">
+        <img
+          src="https://images.pexels.com/photos/1337380/pexels-photo-1337380.jpeg?auto=compress&cs=tinysrgb&w=600"
+          alt=""
+        />
+      </div>
+      <div class="">
+        <img
+          src="https://images.pexels.com/photos/430205/pexels-photo-430205.jpeg?auto=compress&cs=tinysrgb&w=600"
+          alt=""
+        />
+      </div>
+      <div class="">
+        <img
+          src="https://images.pexels.com/photos/1337380/pexels-photo-1337380.jpeg?auto=compress&cs=tinysrgb&w=600"
+          alt=""
+        />
+      </div>
+      <div class="">
+        <img
+          src="https://images.pexels.com/photos/430205/pexels-photo-430205.jpeg?auto=compress&cs=tinysrgb&w=600"
+          alt=""
+        />
+      </div>
+      <div class="">
+        <img
+          src="https://images.pexels.com/photos/1337380/pexels-photo-1337380.jpeg?auto=compress&cs=tinysrgb&w=600"
+          alt=""
+        />
+      </div>
+    </section>
+
+    <section class="three-cards">
+      <div class="card">
+        <img
+          src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600"
+          alt=""
+        />
+        <h3>Card Title</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
+          voluptatibus aliquid quasi perferendis, consectetur consequuntur
+          blanditiis perspiciatis mollitia dolorum ut.
+        </p>
+      </div>
+      <div class="card">
+        <img
+          src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600"
+          alt=""
+        />
+        <h3>Card Title</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
+          voluptatibus aliquid quasi perferendis, consectetur consequuntur
+          blanditiis perspiciatis mollitia dolorum ut.
+        </p>
+      </div>
+      <div class="card">
+        <img
+          src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600"
+          alt=""
+        />
+        <h3>Card Title</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
+          voluptatibus aliquid quasi perferendis, consectetur consequuntur
+          blanditiis perspiciatis mollitia dolorum ut.
+        </p>
+      </div>
+    </section>
+  </body>
+</html>
