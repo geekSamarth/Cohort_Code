@@ -16,7 +16,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 2.5rem 0;
+  margin: 2rem 0;
 }
 
 h1 {
@@ -43,7 +43,7 @@ h1 {
 .pricing-card {
   /* Add your styles here */
   padding: 2rem;
-  width: 350px;
+  width: 380px;
   border-radius: 10px;
   box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -79,7 +79,7 @@ h1 {
   /* Add your styles here */
   font-size: 2em;
   font-weight: 700;
-  margin: 1rem 0;
+  margin: 0.8rem 0;
 }
 
 .period {
@@ -89,13 +89,14 @@ h1 {
 
 .features {
   /* Add your styles here */
-  margin: 1.5rem 0;
+  margin: 1.25rem 0;
 }
 
 .features li {
   /* Add your styles here */
-  list-style-type: square;
+  list-style-type: '🍵';
   margin: 0.75rem 0;
+  font-size: 1.1em;
 }
 
 .subscribe-btn {
@@ -111,4 +112,10 @@ h1 {
   /* Add your styles here */
   background-color: #ff7b00;
   cursor: pointer;
+}
+
+@media only screen and (max-width:480px){
+  .pricing-card{
+    width: 340px;
+  }
 }
