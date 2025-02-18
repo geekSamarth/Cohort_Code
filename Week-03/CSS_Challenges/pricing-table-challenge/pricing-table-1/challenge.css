@@ -1,0 +1,114 @@
+/* Challenge CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f5f5f5;
+}
+
+.container {
+  /* Add your styles here */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2.5rem 0;
+}
+
+h1 {
+  /* Add your styles here */
+  font-size: 2.3em;
+  margin-bottom: 3rem;
+}
+
+.pricing-heading {
+  /* Add your styles here */
+  display: flex;
+  align-items: center;
+}
+
+.pricing-container {
+  /* Add your styles here */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+.pricing-card {
+  /* Add your styles here */
+  padding: 2rem;
+  width: 350px;
+  border-radius: 10px;
+  box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.pricing-card:hover {
+  /* Add your styles here */
+  transform: scale(1.05);
+  transition: transform 0.1s ease-in-out 0.2s;
+}
+
+.pricing-card.popular {
+  /* Add your styles here */
+  border: 3px solid #ff7b00;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.pricing-card.popular h2 {
+  margin-top: 1.5rem;
+}
+.popular-badge {
+  /* Add your styles here */
+  padding: 8px;
+  background-color: #ff7b00;
+  border-radius: 25px;
+  width: 120px;
+  margin: -50px auto 0 auto;
+}
+
+.price {
+  /* Add your styles here */
+  font-size: 2em;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+
+.period {
+  /* Add your styles here */
+  font-size: 1.1em;
+}
+
+.features {
+  /* Add your styles here */
+  margin: 1.5rem 0;
+}
+
+.features li {
+  /* Add your styles here */
+  list-style-type: square;
+  margin: 0.75rem 0;
+}
+
+.subscribe-btn {
+  /* Add your styles here */
+  padding: 1rem 2.15rem;
+  border-radius: 25px;
+  background-color: #f1851f;
+  border: none;
+  font-size: 1em;
+}
+
+.subscribe-btn:hover {
+  /* Add your styles here */
+  background-color: #ff7b00;
+  cursor: pointer;
+}
