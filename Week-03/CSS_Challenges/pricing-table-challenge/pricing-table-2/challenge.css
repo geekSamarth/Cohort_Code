@@ -9,98 +9,174 @@
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  background-color: #f5f5f5;
+  background-color: #202020;
 }
 
 .container {
   /* Add your styles here */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2.5rem 0;
 }
 
 .header {
   /* Add your styles here */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4rem;
 }
 
 h1 {
   /* Add your styles here */
+  font-size: 2.5em;
+  margin: 0.6rem 0;
+  color: #ff6a6a;
+  font-weight: 700;
 }
 
 .subtitle {
   /* Add your styles here */
+  color: #adabab;
+  font-size: 1.25em;
 }
 
 .pricing-container {
   /* Add your styles here */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
 }
 
 .pricing-card {
   /* Add your styles here */
+  background-color: #333232;
+  width: 330px;
+  border-radius: 14px;
+  padding: 1.75rem;
+  border: 2px solid #686767;
 }
 
 .pricing-card:hover {
   /* Add your styles here */
+  transform: scale(1.05);
+  transition: all 0.1s ease-in-out 0.1s;
 }
 
 .card-header {
   /* Add your styles here */
+  text-align: center;
+  color: #fff;
+  font-size: 1.1em;
 }
 
 .icon {
   /* Add your styles here */
+  font-size: 2em;
+  margin-top: 0.9rem;
 }
 
 .popular-tag {
   /* Add your styles here */
+  width: 150px;
+  text-align: center;
+  padding: 8px 14px;
+  border-radius: 25px;
+  background-color: #f0cc2e;
+  font-size: 0.75em;
+  font-weight: 600;
+  margin: -44px auto 1rem auto;
 }
 
 .price-block {
   /* Add your styles here */
+  text-align: center;
+  padding: 1rem;
+  border-radius: 16px;
+  background-color: rgba(119, 119, 119, 0.2);
+  margin: 1.15rem 0;
 }
 
 .price {
   /* Add your styles here */
+  font-size: 2em;
+  font-weight: 600;
+  color: #ff6a6a;
 }
 
 .period {
   /* Add your styles here */
+  font-size: 0.9em;
+  text-transform: uppercase;
+  color: #adabab;
 }
 
 .features {
   /* Add your styles here */
+  margin: 2.5rem 0;
 }
 
 .features li {
   /* Add your styles here */
+  margin: 1.25rem 0;
+  color: #f5f0f0;
+  list-style-type: none;
 }
 
 .features li.disabled {
   /* Add your styles here */
+  color: #a09d9d;
 }
 
 .join-btn {
   /* Add your styles here */
+  width: 100%;
+  padding: 16px;
+  background-color: transparent;
+  border-radius: 12px;
+  border: 2px solid #ff6a6a;
+  color: #ff6a6a;
+  font-size: 1.1em;
+  font-weight: 600;
 }
 
 .join-btn:hover {
   /* Add your styles here */
+  background-color: #745353;
+  color: #fff;
+  cursor: pointer;
 }
 
 /* Custom Class Modifiers */
 .warrior {
   /* Add your styles here */
+  background-color: rgba(77, 38, 38, 0.7);
+  border: 2px solid #ff6a6a;
 }
 
 .champion {
   /* Add your styles here */
+  border: 2px solid #ffc403;
+  background-color: rgba(71, 60, 21, 0.6);
 }
 
 .champion .price {
   /* Add your styles here */
+  color: #f0cc2e;
 }
 
 .champion .join-btn {
   /* Add your styles here */
+  border: 2px solid #f0cc2e;
+  color: #ffd000;
 }
 
 .champion .join-btn:hover {
   /* Add your styles here */
+  background-color: #74673d;
+  color: #fff;
 }
