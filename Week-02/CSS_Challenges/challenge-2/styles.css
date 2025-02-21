@@ -29,7 +29,6 @@ body {
 .hero-grid {
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 .content-col {
   width: 40%;
@@ -103,12 +102,53 @@ input [type="text"]:focus {
 input[type="text"]::placeholder {
   color: var(--neutral-400);
 }
-@media only screen and(max-width:640px) {
+@media only screen and (max-width: 700px) {
+  body {
+    padding: 1.5rem 1rem;
+  }
   .hero-grid {
     flex-direction: column-reverse;
   }
-  .content-col,
+  .content-col {
+    width: 100%;
+    padding: 0 8px;
+  }
+  .content-col h1 {
+    font-size: 3.25em;
+  }
+  .content-col p {
+    font-size: 1.5em;
+    margin-top: -1rem;
+  }
+  .cta-group {
+    flex-wrap: wrap;
+  }
+  input[type="text"] {
+    width: 100%;
+  }
   .image-col {
-    width: 90%;
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 700px) and (max-width: 1024px) {
+  body {
+    padding: 1.5rem 2rem;
+  }
+  .hero-grid {
+    flex-direction: column-reverse;
+  }
+  .content-col {
+    width: 100%;
+    padding: 0 8px;
+  }
+  .cta-group {
+    flex-wrap: wrap;
+    gap: 3.5rem;
+  }
+  input[type="text"] {
+    width: 100%;
+  }
+  .image-col {
+    width: 100%;
   }
 }
