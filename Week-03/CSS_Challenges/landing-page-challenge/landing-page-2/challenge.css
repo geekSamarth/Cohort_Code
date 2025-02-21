@@ -13,7 +13,7 @@ body {
 /* Navbar styles */
 .navbar {
   /* Add styles for the navbar */
-  background-color: #353434;
+  background-color: #252525;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,66 +24,154 @@ body {
   /* Add styles for the logo */
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
+  font-weight: 700;
+  font-size: 1.3em;
+  color: #32ffb0;
 }
 
 .logo img {
   /* Add styles for the logo image */
   border-radius: 50%;
   padding: 3px;
-  border: 2px solid #35cc07;
+  border: 2px solid #32ffb0;
 }
 
 .menu a {
   /* Add styles for the navigation links */
+  margin: 0 1.5rem;
+  font-size: 1.15em;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .menu a:hover {
   /* Add hover styles for navigation links */
+  color: #32ffb0;
+  text-decoration: underline;
 }
 
 /* Hero section styles */
 .hero {
   /* Add styles for the hero section */
+  padding: 4.5rem 0;
+  background-image: url("./assets/chaicohort.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 85vh;
+  position: relative;
 }
 
 .hero-content {
   /* Add styles for the hero content container */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
+.hero-content::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+}
 .hero-content h1 {
   /* Add styles for the hero heading */
+  color: #32ffb0;
+  margin-bottom: 1rem;
+  font-size: 2.5em;
+  z-index: 10;
 }
 
 .hero-content p {
   /* Add styles for the hero paragraph */
+  color: #fff;
+  font-size: 1.15em;
+  margin-bottom: 1.75rem;
+  z-index: 10;
 }
 
 .hero-content img {
   /* Add styles for the image in the hero section */
+  padding: 2px;
+  border: 3px solid #32ffb0;
+  border-radius: 10px;
+  z-index: 10;
 }
 
 .enroll-button {
   /* Add styles for the enroll button */
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  border: none;
+  background-color: #32ffb0;
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-top: 1.75rem;
+  z-index: 10;
 }
 
 .enroll-button:hover {
   /* Add hover styles for the enroll button */
+  background-color: #2aff8a;
 }
 
 /* Highlights section styles */
 .highlights {
   /* Add styles for the highlights section */
+  background-color: #252525;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2rem;
+  padding: 4rem 1rem;
 }
 
 .highlight-card {
   /* Add styles for each highlight card */
+  background-color: #3a3a3a;
+  width: 300px;
+  height: 200px;
+  border-radius: 15px;
+  text-align: center;
+  padding: 1.5rem;
 }
 
 .highlight-card h3 {
   /* Add styles for highlight card headings */
+  color: #32ffb0;
+  font-size: 1.25em;
+  font-weight: 600;
 }
 
 .highlight-card p {
   /* Add styles for highlight card paragraphs */
+  color: #fcfafa;
+  font-size: 1em;
+  margin-top: 1rem;
+}
+
+/* applying media queries to make the landing page a little responsive */
+
+@media only screen and (max-width: 600px) {
+  .menu a {
+    display: none;
+  }
+  .hero-content {
+    text-align: center;
+    padding: 6px;
+  }
+  .hero-content h1 {
+    font-size: 2em;
+  }
+  .hero-content img {
+    width: 100%;
+  }
 }
