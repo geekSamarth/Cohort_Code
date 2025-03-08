@@ -15,7 +15,9 @@ const proxyUser = new Proxy(user, {
     return target[prop];
   },
   // setting the value of proxied object
-  set(target,prop,value){}
+  set(target, prop, value) {
+    target[prop] = value;
+  },
 });
 
 console.log(proxyUser.name);

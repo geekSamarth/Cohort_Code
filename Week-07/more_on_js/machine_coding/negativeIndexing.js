@@ -10,7 +10,7 @@ function negativeIndex(arr) {
     set(target, prop, value) {
       const index = Number(prop);
       if (index < 0) {
-        target[target.length + value] = value;
+        target[target.length + index] = value;
       } else {
         target[index] = value;
       }
