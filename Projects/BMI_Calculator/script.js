@@ -1,28 +1,26 @@
 const weightInput = document.getElementById("weightInput");
 const heightInput = document.getElementById("heightInput");
 const calculateBtn = document.getElementById("calculateBMI");
-const result = document.getElementById("calculateBMI");
+const result = document.getElementById("result");
 
-function calculateBMI(height, weight) {
-  // do some basic validations
+function calculate() {
+  const weight = weightInput.value;
+  const height = heightInput.value;
+  // checking for simple validations
+  if (weight === "" || height === "") {
+    alert("Please insert value for weight or height");
+  } else {
+    const res = (weight / Math.pow(height, 2)).toFixed(2);
+    if (res < 18.5) {
+      result.textContent = `BMI is: ${res} and category is: Underweight`;
+    } else if (res >= 18.5 && res <= 24.9) {
+      result.textContent = `BMI is: ${res} and category is: Normal`;
+    } else if (res >= 25 && res <= 29.9) {
+      result.textContent = `BMI is: ${res} and category is: Overweight ⬆️`;
+    } else {
+      result.textContent = `BMI is: ${res} and category is: Obese ❎`;
+    }
+  }
 }
 
-calculateBtn.addEventListener("click", () => {
-  const heightValue = heightInput.value;
-  console.log(heightValue);
-  const weightValue = weightInput.value;
-  console.log(weightValue);
-  const userHeight = Number(heightValue);
-  const userWeight = Number(weightValue);
-  const bmi = (userWeight / Math.pow(userHeight, 2)).toFixed(1);
-
-  if (result < 18.5) {
-    result.innerText = `Your BMI is ${bmi} and your BMI category is Underweight ⬇️`;
-  } else if (result >= 18.5 && result <= 24.9) {
-    result.innerText = `Your BMI is ${bmi} and your BMI category is Normal ✅`;
-  } else if (result >= 25 && result <= 29.9) {
-    result.innerText = `Your BMI is ${bmi} and your BMI category is OverWeight ⬆️`;
-  } else {
-    result.innerText = `Your BMI is ${bmi} and your BMI category is Obese ❌`;
-  }
-});
+calculateBtn.addEventListener("click", calculate);
