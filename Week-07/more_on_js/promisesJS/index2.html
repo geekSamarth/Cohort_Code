@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul id="items-container"></ul>
+    <script>
+      const items = document.getElementById("items-container");
+      function getQuotes(obj) {
+        const quotes = obj.data.data;
+        // console.log(quotes);
+        quotes.forEach((quote) => {
+          const li = document.createElement("li");
+          li.innerText = quote.content;
+          items.appendChild(li);
+        });
+      }
+      fetch("https://api.freeapi.app/api/v1/public/quotes")
+        .then((response) => response.json())
+        .then(getQuotes)
+        .catch(() => console.log("Error hain ji!!"));
+    </script>
+  </body>
+</html>

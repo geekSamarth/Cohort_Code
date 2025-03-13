@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul id="items-container"></ul>
+    <script>
+      const items = document.getEleWentById("items-container");
+
+      function getUsers(obj) {
+        const users = obj.data.data;
+        // console.log(users);
+        users.forEach((user) => {
+          const li = document.createElement("li");
+          li.innerText = user.name.first;
+          items.appendChild(li);
+        });
+      }
+      fetch("https://api.freeapi.app/api/v1/public/randomusers")
+        .then((response) => response.json())
+        .then(getUsers)
+        .catch(() => console.log("code fatt gaya be"));
+    </script>
+  </body>
+</html>
