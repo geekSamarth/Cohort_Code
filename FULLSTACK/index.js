@@ -2,12 +2,14 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import dbConnect from "./utils/db.js";
+import cookieParser from "cookie-parser";
 
 // import all routes
 
 import userRoutes from "./routes/user.routes.js";
 dotenv.config();
 const app = express();
+app.use(cookieParser());
 
 app.use(
   cors({
