@@ -1,0 +1,117 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.main-container {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  background-color: #003049;
+}
+.content-container {
+  width: 70%;
+  height: 450px;
+  border-radius: 10px;
+  background-color: #95d5b2;
+  padding: 1rem 2rem;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  gap: 2rem;
+}
+.heading {
+  font-size: 3em;
+  color: #f1faee;
+}
+.review-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.review-container input,
+.review-container textarea {
+  padding: 1rem;
+  border-radius: 10px;
+  background: transparent;
+  color: black;
+  outline: none;
+  border: 2px solid black;
+  font-size: 1.12em;
+}
+.review-container input::placeholder,
+.review-container textarea::placeholder {
+  color: black;
+  font-size: 1.25em;
+}
+#review-description {
+  height: 180px;
+}
+.button {
+  display: flex;
+  justify-content: end;
+}
+#submit {
+  width: 150px;
+  padding: 1rem;
+  border-radius: 12px;
+  border: none;
+  background-color: #2d6a4f;
+  color: #f1faee;
+  font-size: 1.12em;
+}
+#submit:hover {
+  background-color: #40916c;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+.show-review-container {
+  width: 45%;
+  height: 100%;
+  padding: 0 2rem;
+  border-left: 2px solid black;
+}
+#review {
+  border: 2px solid black;
+  margin: 2rem auto;
+  padding: 1rem;
+  border-radius: 10px;
+}
+#review-text {
+  margin-bottom: 1rem;
+  font-size: 1.12em;
+  font-weight: 500;
+}
+.user {
+  display: flex;
+  justify-content: end;
+}
+#user-name {
+  font-size: 1.05em;
+}
+
+/* implementing media queries to make the website device responsive */
+
+@media only screen and (max-width: 720px) {
+  .content-container {
+    flex-direction: column;
+    height: auto;
+    width: 90%;
+    padding: 1rem;
+  }
+  .review-container {
+    width: 100%;
+  }
+  .show-review-container {
+    width: 100%;
+    border-left: none;
+    border-top: 2px solid black;
+    padding: 0;
+  }
+}
