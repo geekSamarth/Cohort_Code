@@ -1,0 +1,15 @@
+{
+  "name": "03react",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,html}\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "prettier": "^3.5.3"
+  }
+}
