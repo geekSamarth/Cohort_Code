@@ -4,6 +4,8 @@ import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
+// controller for generating access and refresh token using user id
+
 export const generateAccessAndRefreshToken = async (userId) => {
   try {
     //  more secure
@@ -70,6 +72,8 @@ export const getNewRefreshToken = async (req, res) => {
     });
   }
 };
+
+//  controller for registering a new user
 
 export const registerUser = async (req, res) => {
   // extracting user info from the req.body
@@ -153,6 +157,8 @@ export const registerUser = async (req, res) => {
   }
 };
 
+// controller for verifying a user
+
 export const verifyUser = async (req, res) => {
   // extract token from the url using req.params
   const { token } = req.params;
@@ -188,6 +194,8 @@ export const verifyUser = async (req, res) => {
     message: "User verified successfully!!",
   });
 };
+
+// controller for user login
 
 export const login = async (req, res) => {
   // collecting data from the req.body
@@ -255,6 +263,8 @@ export const login = async (req, res) => {
   }
 };
 
+// controller for user logout
+
 export const logout = async (req, res) => {
   try {
     const id = req.user.id;
@@ -288,6 +298,8 @@ export const logout = async (req, res) => {
   }
 };
 
+// controller for fetching the user profile
+
 export const getUserProfile = async (req, res) => {
   // get user if from req.user
 
@@ -314,3 +326,77 @@ export const getUserProfile = async (req, res) => {
     });
   }
 };
+
+// controller for changing the old password
+
+export const changePassword = async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  // check if user provide both the old and the new password
+
+  if (!oldPassword || !newPassword) {
+    res.status(400).json({
+      success: false,
+      message: "All fields are necessary!",
+    });
+  }
+  try {
+    const id = req.user.id;
+    const user = await User.findById(id);
+    if (!user) {
+      res.status(400).json({
+        success: false,
+        error,
+        message: "Please login first to change the password",
+      });
+    }
+    // comapre the old password from db and the user provided
+
+    const isPasswordMatched = await bcrypt.compare(oldPassword, user.password);
+    if (!isPasswordMatched) {
+      res.status(400).json({
+        success: false,
+        error,
+        message: "Old password is wrong",
+      });
+    }
+
+    // setting the new password for the user
+    user.password = newPassword;
+    await user.save();
+    res.status(201).json({
+      success: true,
+      message: "user password changed",
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "changing password operation failed!!",
+      error,
+    });
+  }
+};
+
+
+// controller for forgot password functionality
+
+export const forgotPassword = async(req,res)=>{
+  // fetching the user email from the req.body
+ try {
+   const {email} = req.body
+   const user = await User.findOne({email})
+   if(!user){
+    res.status(400).json({
+      success:false,
+      message:'user not found'
+    })
+
+   }
+ } catch (error) {
+  res.status(400).json({
+    success:false,
+    message:'forgot password operation failed',
+    error
+  })
+ }
+  
+}
