@@ -428,3 +428,47 @@ export const forgotPassword = async (req, res) => {
     });
   }
 };
+
+// controller for reset password functionality
+
+export const resetPassword = async (req, res) => {
+  // extracting params from url using req.params
+  const { token } = req.params;
+  const { password } = req.body;
+
+  if (!password || !token) {
+    res.status(400).json({
+      success: false,
+      message: "password is required",
+    });
+  }
+
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+    if (!user) {
+      res.status(400).json({
+        success: false,
+        message: "user not found!",
+        error,
+      });
+    }
+    user.isVerified = true;
+    user.password = password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+    res.status(201).json({
+      success: true,
+      message: "User password reset successfully",
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "reset password operation failed",
+      error,
+    });
+  }
+};
