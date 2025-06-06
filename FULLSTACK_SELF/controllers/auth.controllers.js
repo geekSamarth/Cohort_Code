@@ -4,6 +4,73 @@ import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
+export const generateAccessAndRefreshToken = async (userId) => {
+  try {
+    //  more secure
+    const user = await User.findById(userId); // extra db call
+    const accessToken = user.generateAccessToken();
+    const refreshToken = user.generateRefreshToken();
+    user.refreshToken = refreshToken;
+    await user.save();
+    return { refreshToken, accessToken, user };
+  } catch (error) {
+    res.status(400).json({
+      message: "refresh token error",
+    });
+  }
+};
+
+// controller for generating new refresh token
+
+export const getNewRefreshToken = async (req, res) => {
+  try {
+    // checking for refresh token from cookies
+    const incomingRefreshToken = req.cookies?.refreshToken;
+    if (!incomingRefreshToken) {
+      res.status(401).json({
+        success: false,
+        message: "missing refresh token",
+      });
+    }
+    // extracting user info by decoding the incoming refresh token from cookies
+    const decodedToken = jwt.verify(
+      incomingRefreshToken,
+      process.env.REFRESH_JWT_SECRET
+    );
+    console.log(decodedToken);
+
+    const user = await User.findById(decodedToken?._id);
+    if (!user) {
+      res.status(400).json({
+        success: false,
+        message: "user not found, in refresh token",
+      });
+    }
+
+    const { accessToken, newRefreshToken } =
+      await generateAccessAndRefreshToken(decodedToken?._id);
+
+    const cookieOptions = {
+      httpOnly: true,
+      secure: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    };
+    res.cookie("accessToken", accessToken, cookieOptions);
+    res.cookie("refreshToken", newRefreshToken, cookieOptions);
+    res.status(200).json({
+      success: true,
+      accessToken,
+      message: "new access token generated",
+    });
+  } catch (error) {
+    res.status(401).json({
+      success: false,
+      message: "failed to refresh token",
+      error: error.message,
+    });
+  }
+};
+
 export const registerUser = async (req, res) => {
   // extracting user info from the req.body
   const { email, password, name } = req.body;
@@ -157,32 +224,93 @@ export const login = async (req, res) => {
         message: "Your password is incorrect",
       });
     }
-    const token = jwt.sign(
-      { id: user._id, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRY }
+    const { accessToken, refreshToken } = generateAccessAndRefreshToken(
+      user._id
     );
+    console.log("login tokens", accessToken, refreshToken);
     const cookieOptions = {
       httpOnly: true,
       secure: true,
       maxAge: 24 * 60 * 60 * 1000,
     };
-    res.cookie("token", token, cookieOptions);
-    res.status(201).json({
-      success: true,
-      message: "User logged in successfully!",
-      token,
-      user: {
-        id: user._id,
-        name: user.name,
-        role: user.role,
-      },
-    });
+    res
+      .cookie("accesstoken", accessToken, cookieOptions)
+      .cookie("refreshtoken", refreshToken, cookieOptions)
+      .status(201)
+      .json({
+        success: true,
+        message: "User logged in successfully!",
+        user: {
+          id: user._id,
+          name: user.name,
+          role: user.role,
+        },
+      });
   } catch (error) {
     res.status(400).json({
       success: false,
       error,
       message: "Login Failed!",
+    });
+  }
+};
+
+export const logout = async (req, res) => {
+  try {
+    const id = req.user.id;
+    const user = await User.findById(id);
+    if (!user) {
+      res.status(400).json({
+        success: false,
+        message: "Please Login first",
+      });
+    }
+    user.refreshToken = undefined;
+    await user.save();
+
+    // deleting cookies containing the tokens
+    if (!req.cookies?.refreshToken || !req.cookies?.accessToken) {
+      res.status(400).json({
+        success: false,
+        message: "User not logged In",
+      });
+    }
+    req.cookies("accesstoken").clearCookie("refreshToken").status(200).json({
+      success: true,
+      message: "User logged out successfully!!",
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error,
+      message: "logout failed!",
+    });
+  }
+};
+
+export const getUserProfile = async (req, res) => {
+  // get user if from req.user
+
+  try {
+    const id = req.user.id;
+    const user = await User.findById(id).select("-password");
+    console.log("user info", user);
+    if (!user) {
+      res.status(400).json({
+        success: false,
+        message: "user not found",
+      });
+    }
+    res.status(201).json({
+      success: true,
+      message: "Fetching user information",
+      user,
+    });
+  } catch (error) {
+    console.log("error while fetching user", error);
+    res.status(400).json({
+      success: false,
+      message: "User Profile fetching failed!",
     });
   }
 };
