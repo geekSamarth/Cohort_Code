@@ -376,27 +376,55 @@ export const changePassword = async (req, res) => {
   }
 };
 
-
 // controller for forgot password functionality
 
-export const forgotPassword = async(req,res)=>{
+export const forgotPassword = async (req, res) => {
   // fetching the user email from the req.body
- try {
-   const {email} = req.body
-   const user = await User.findOne({email})
-   if(!user){
-    res.status(400).json({
-      success:false,
-      message:'user not found'
-    })
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      res.status(400).json({
+        success: false,
+        message: "user not found",
+      });
+      // generating a token for sending via mail to the user
 
-   }
- } catch (error) {
-  res.status(400).json({
-    success:false,
-    message:'forgot password operation failed',
-    error
-  })
- }
-  
-}
+      const forgotLinkToken = await crypto.randomBytes(32).toString("hex");
+      user.resetPasswordToken = forgotLinkToken;
+      user.resetPasswordExpires = Date.now() + 10 * 60 * 1000;
+      await user.save();
+
+      // appending a mail service to send a mail to the user
+
+      const transporter = nodemailer.createTransport({
+        host: process.env.MAILTRAP_HOST,
+        port: process.env.MAILTRAP_PORT,
+        secure: false,
+        auth: {
+          user: process.env.MAILTRAP_USERNAME,
+          pass: process.env.MAILTRAP_PASSWORD,
+        },
+      });
+
+      const mailOptions = {
+        from: process.env.MAILTRAP_SENDERMAIL,
+        to: user.email,
+        subject: "Reset your password",
+        text: `Please click on the below link to reset your password, the link is valid for only 10 minutes.
+      ${process.env.BASE_URL}/api/v1/users/reset-password/${forgotLinkToken}`,
+      };
+      await transporter.sendMail(mailOptions);
+      res.status(201).json({
+        success: true,
+        message: "Password reset link sent to your registered email",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "forgot password operation failed",
+      error,
+    });
+  }
+};
