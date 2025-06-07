@@ -26,9 +26,6 @@ const userSchema = new mongoose.Schema(
     verificationToken: {
       type: String,
     },
-    verificationTokenExpiry: {
-      type: Date,
-    },
     resetPasswordToken: {
       type: String,
     },
@@ -56,17 +53,20 @@ userSchema.methods.generateAccessToken = function () {
       expiresIn: process.env.ACCESS_JWT_EXPIRY,
     }
   );
+  // console.log('accesstoken',accessToken);
   return accessToken;
 };
 
 userSchema.methods.generateRefreshToken = function () {
+  // console.log('user id',this._id)
   const refreshToken = jwt.sign(
     { id: this._id },
-    process.env.JWT_REFRESH_SECRET,
+    process.env.REFRESH_JWT_SECRET,
     {
       expiresIn: process.env.REFRESH_JWT_EXPIRY,
     }
   );
+  // console.log('refresh token',refreshToken);
   return refreshToken;
 };
 

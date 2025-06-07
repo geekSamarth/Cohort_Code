@@ -6,21 +6,23 @@ import bcrypt from "bcryptjs";
 
 // controller for generating access and refresh token using user id
 
-export const generateAccessAndRefreshToken = async (userId) => {
+async function generateAccessAndRefreshToken(userId, req, res) {
+  // console.log(userId)
   try {
     //  more secure
     const user = await User.findById(userId); // extra db call
-    const accessToken = user.generateAccessToken();
-    const refreshToken = user.generateRefreshToken();
+    // console.log(user)
+    const accessToken = await user.generateAccessToken();
+    const refreshToken = await user.generateRefreshToken();
     user.refreshToken = refreshToken;
     await user.save();
-    return { refreshToken, accessToken, user };
+    return { accessToken, refreshToken, user };
   } catch (error) {
-    res.status(400).json({
+    return res.status(400).json({
       message: "refresh token error",
     });
   }
-};
+}
 
 // controller for generating new refresh token
 
@@ -76,59 +78,51 @@ export const getNewRefreshToken = async (req, res) => {
 //  controller for registering a new user
 
 export const registerUser = async (req, res) => {
-  // extracting user info from the req.body
-  const { email, password, name } = req.body;
-  // do some basic validation on the user info fetched from the req.body
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) {
+    return res.status(400).json({
+      success: false,
+      message: "All fields are required",
+    });
+  }
+  if (password.length < 6) {
+    return res.status(400).json({
+      success: false,
+      message: "Password must be 8 characters long",
+    });
+  }
   try {
-    if (!email || !password || !name) {
-      res.status(400).json({
-        success: false,
-        message: "All fields are required!!",
-      });
-    }
-    // check whether the password is more than 6 character long
-    if (password.length < 6) {
-      res.status(400).json({
-        message: "password should be more than 6 characters",
-      });
-    }
-    // check whether the user is already existed or not
+    // checking for existing user or not
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      res.status(401).json({
+      return res.status(400).json({
         success: false,
-        message: "User already exists, please login!!",
+        message: "User already exists, please login!",
       });
     }
-
-    // creating a new user in the database
-    const user = await User.create({
-      email,
-      password,
-      name,
-    });
+    // create a new user in the database
+    const user = await User.create({ name, email, password });
     if (!user) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
-        message: "user not registered",
+        message: "User registration operation failed!",
       });
     }
 
-    // create a verification token and save it in the database
+    // creating a token to send in the mail for user verification process
     const token = crypto.randomBytes(32).toString("hex");
-    const tokenExpiry = new Date.now() + 10 * 60 * 1000; //for 10 minutes
     console.log(token);
     user.verificationToken = token;
-    user.verificationTokenExpiry = tokenExpiry;
     await user.save();
 
-    // send the email to user to verify the email
+    // using mail service to send the verification mail to the user
+
     const transporter = nodemailer.createTransport({
       host: process.env.MAILTRAP_HOST,
       port: process.env.MAILTRAP_PORT,
       secure: false,
       auth: {
-        yser: process.env.MAILTRAP_USERNAME,
+        user: process.env.MAILTRAP_USERNAME,
         pass: process.env.MAILTRAP_PASSWORD,
       },
     });
@@ -138,21 +132,22 @@ export const registerUser = async (req, res) => {
       to: user.email,
       subject: "Please verify your email",
       text: `Please click on the below link to verify your email, the link is valid for 10 minutes only.
-      ${process.env.BASE_URL}/api/v1/users/verify/${token}`,
+      ${process.env.BASE_URL}:${process.env.PORT}/api/v1/users/verify/${token}`,
     };
+
+    // console.log(mailOptions);
+
     await transporter.sendMail(mailOptions);
 
-    // finally sending the successfull user registration message to the frontend
-
-    res.status(201).json({
+    return res.status(200).json({
       success: true,
-      message: "User registered successfully!!, check your email to verify.",
+      message: "User created successfully, please verify your email first! ",
     });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error,
-      message: "User not registered!!",
+      message: "User registration failed!!",
     });
   }
 };
@@ -164,19 +159,18 @@ export const verifyUser = async (req, res) => {
   const { token } = req.params;
   console.log(token);
   if (!token) {
-    res.status(400).json({
+    return res.status(400).json({
       success: false,
-      message: "Invalid Token!",
+      message: "Token not found!",
     });
   }
 
   const user = await User.findOne({
     verificationToken: token,
-    verificationTokenExpiry: { $gt: Date.now() },
   });
   console.log(user);
   if (!user) {
-    res.status(400).json({
+    return res.status(400).json({
       success: false,
       message: "Invalid Token",
     });
@@ -186,10 +180,9 @@ export const verifyUser = async (req, res) => {
 
   // set the verificationToken and verificationTokenExpiry field to undefined in the db and save it
   user.verificationToken = undefined;
-  user.verificationTokenExpiry = undefined;
   await user.save();
 
-  res.status(201).json({
+  return res.status(201).json({
     success: true,
     message: "User verified successfully!!",
   });
@@ -199,7 +192,7 @@ export const verifyUser = async (req, res) => {
 
 export const login = async (req, res) => {
   // collecting data from the req.body
-  const { email, password } = req.body();
+  const { email, password } = req.body;
   // validate the data
   if (!email || !password) {
     return res.status(400).json({
@@ -212,14 +205,14 @@ export const login = async (req, res) => {
     // finding if user exists or not
     const user = await User.findOne({ email });
     if (!user) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         message: "user not exists.",
       });
     }
     // check if the user is verified or not
     if (!user.isVerified) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         message: "please verify yourself first.",
       });
@@ -227,15 +220,15 @@ export const login = async (req, res) => {
     // checking for the password to be correct or not
     const isPasswordMatched = await bcrypt.compare(password, user.password);
     if (!isPasswordMatched) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         message: "Your password is incorrect",
       });
     }
-    const { accessToken, refreshToken } = generateAccessAndRefreshToken(
+    const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
       user._id
     );
-    console.log("login tokens", accessToken, refreshToken);
+    // console.log("login tokens", accessToken, refreshToken);
     const cookieOptions = {
       httpOnly: true,
       secure: true,
@@ -268,9 +261,10 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
   try {
     const id = req.user.id;
+    console.log(id)
     const user = await User.findById(id);
     if (!user) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         message: "Please Login first",
       });
@@ -280,17 +274,21 @@ export const logout = async (req, res) => {
 
     // deleting cookies containing the tokens
     if (!req.cookies?.refreshToken || !req.cookies?.accessToken) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         message: "User not logged In",
       });
     }
-    req.cookies("accesstoken").clearCookie("refreshToken").status(200).json({
+    return req
+    .clearCookie("accesstoken")
+    .clearCookie("refreshToken")
+    .status(200)
+    .json({
       success: true,
       message: "User logged out successfully!!",
     });
   } catch (error) {
-    res.status(400).json({
+    return res.status(400).json({
       success: false,
       error: error,
       message: "logout failed!",
